@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-helm
+spec:
+  destination:
+    name: ''
+    namespace: nginx-helm
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: helm/
+    repoURL: 'https://github.com/graytonio/flagops-test-applications.git'
+    targetRevision: HEAD
+    plugin:
+      name: flagops-plugin-helm
+      env:
+        - name: FLAGOPS_ENVIRONMENT
+          value: production
+  sources: []
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

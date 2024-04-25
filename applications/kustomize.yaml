@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-kustomize
+spec:
+  destination:
+    name: ''
+    namespace: nginx-kustomize
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: kustomize/
+    repoURL: 'https://github.com/graytonio/flagops-test-applications.git'
+    targetRevision: HEAD
+    plugin:
+      name: flagops-plugin-kustomize
+      env:
+        - name: FLAGOPS_ENVIRONMENT
+          value: production
+  sources: []
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
