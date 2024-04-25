@@ -1,0 +1,12 @@
+resources:
+  - deployment.yaml
+  - service.yaml
+
+patches:
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: nginx-deployment
+      spec:
+        replicas: [{ env "nginx_relicas" }]

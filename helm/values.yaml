@@ -1,0 +1,1 @@
+replicas: [{ env "nginx_relicas" }]
